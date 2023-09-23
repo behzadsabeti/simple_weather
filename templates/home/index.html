@@ -1,0 +1,40 @@
+{% extends "shared/layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <form method="post" action="/submit" id="locinfo">
+        <label for="city" class="form-label">Enter you city name:</label>
+        <input type="text" id="city" name="city" class="form-control" required>
+
+        <label for="unit_system" class="form-label">What is your preferred unit system?</label>
+        <select id="unit_system" class="form-select" aria-label="Default select example" form="locinfo" name="unit_system">
+            <option value="metric" selected>metric</option>
+            <option value="imperial">imperial</option>
+        </select>
+
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="container">
+
+    {% if info %}
+        
+        <h1>Weather in {{ info["name"] }}</h1>
+        <p>Temperature: {{ info["main"]["temp"] }}</p>
+        <p>Weather Description: {{ info["weather"][0]["description"] }}</p>
+        
+    {% else %}
+
+    {% endif %}
+
+    
+
+</div>
+
+
+
+
+{% endblock %}
