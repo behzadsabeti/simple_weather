@@ -1,5 +1,6 @@
 import json
-from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 import fastapi
 import uvicorn
@@ -18,14 +19,14 @@ def configure():
 
 
 def configure_api_keys():
-    file = Path('settings.json').absolute()
-    if not file.exists():
-        print(f"WARNING: {file} file not found, you cannot continue, please see settings_template.json")
-        raise Exception("settings.json file not found, you cannot continue, please see settings_template.json")
-
-    with open(file) as fin:
-        settings = json.load(fin)
-        openweather_service.api_key = settings.get('api_key')
+    if not os.path.isfile('.env'):
+        print("WARNING: The .env file does not exist in the current directory.")
+        print("Please create a .env file and add the required environment variables.")
+    else:
+        # Load environment variables from the .env file if it exists
+        from dotenv import load_dotenv
+        load_dotenv()
+        openweather_service.api_key = os.getenv("api_key")
 
 
 def configure_routing():
@@ -36,9 +37,6 @@ def configure_routing():
 
 if __name__ == '__main__':
     configure()
-    # uvicorn was updated, and it's type definitions don't match FastAPI,
-    # but the server and code still work fine. So ignore PyCharm's warning:
-    # noinspection PyTypeChecker
     uvicorn.run(api, port=8000, host='127.0.0.1')
 else:
     configure()
