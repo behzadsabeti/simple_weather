@@ -8,12 +8,10 @@
   ],
   "routes": [
     {
-      "src": "/",
-      "dest": "main.py"
-    },
-    {
-    "src": "/submit",
+      "src": "/(.*)",
       "dest": "main.py"
     }
   ]
 }
+
+
