@@ -36,6 +36,5 @@ def configure_routing():
     app.include_router(weather_api.router)
 
 
-if __name__ == '__main__':
-    configure()
+configure()
 
