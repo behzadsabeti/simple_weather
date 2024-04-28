@@ -13,13 +13,17 @@ def index(request: Request):
     return templates.TemplateResponse('home/index.html', {'request': request})
 
 
+import traceback
+
 @router.post("/submit")
 async def process_form(request: Request, city: str = Form(...), unit_system: str = Form(...)):
-    # Handle the form data here
+    try:
+        report = await openweather_service.get_report_async(city=city, country=None, units=unit_system, state=None)
+        return templates.TemplateResponse('home/index.html', {'request': request, "info": report})
+    except Exception as e:
+        traceback.print_exc()
+        return fastapi.HTTPException(status_code=500, detail="Internal Server Error")
 
-    report = await openweather_service.get_report_async(city=city, country=None, units=unit_system, state=None)
-
-    return templates.TemplateResponse('home/index.html', {'request': request, "info": report})
 
 
 
