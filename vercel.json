@@ -8,7 +8,7 @@
   ],
   "routes": [
    { "src": "/", "dest": "main.py" },
-		{ "src": "/submit", "dest": "views/home.py" }
+   { "src": "/submit", "dest": "main.py" }
   ]
 }
 
