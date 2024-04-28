@@ -22,7 +22,8 @@ async def process_form(request: Request, city: str = Form(...), unit_system: str
         return templates.TemplateResponse('home/index.html', {'request': request, "info": report})
     except Exception as e:
         traceback.print_exc()
-        return fastapi.HTTPException(status_code=500, detail="Internal Server Error")
+        return fastapi.HTTPException(status_code=500, detail=str(e))
+
 
 
 
