@@ -19,18 +19,14 @@ def configure():
 
 
 def configure_api_keys():
-    if not os.path.isfile('.env'):
-        print("WARNING: The .env file does not exist in the current directory.")
-        print("Please create a .env file and add the required environment variables.")
+    api_key = os.environ.get('api_key')
+    if api_key is None:
+        print("ERROR: API key is not found in the environment variables.")
     else:
-        # Load environment variables from the .env file if it exists
-        from dotenv import load_dotenv
-        load_dotenv()
-        api_key = os.environ.get('api_key')
-        if api_key is None:
-            print("ERROR: API key is not found in the environment variables.")
-        else:
-            openweather_service.api_key = api_key
+        openweather_service.api_key = api_key
+        print("API key loaded successfully:", api_key)
+
+
 
         
 
