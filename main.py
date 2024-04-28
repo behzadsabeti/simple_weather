@@ -26,7 +26,12 @@ def configure_api_keys():
         # Load environment variables from the .env file if it exists
         from dotenv import load_dotenv
         load_dotenv()
-        openweather_service.api_key = os.environ.get('api_key')
+        api_key = os.environ.get('api_key')
+        if api_key is None:
+            print("ERROR: API key is not found in the environment variables.")
+        else:
+            openweather_service.api_key = api_key
+
         
 
 
